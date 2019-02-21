@@ -2,6 +2,8 @@
 
 This is supposed to manage daily secrets 'better'.
 
+[latest release with binaries for v0.2.0](https://github.com/abhishekkr/crypt/releases/latest)
+
 ### Does
 
 > for every task, your `passphrase` to be used is asked and never cached
