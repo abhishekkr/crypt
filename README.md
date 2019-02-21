@@ -6,9 +6,13 @@ This is supposed to manage daily secrets 'better'.
 
 > for every task, your `passphrase` to be used is asked and never cached
 
+* Generates a new secret.
+
 * Create secrets to a locally managed file. It asks for `topic`, `key` and `value`.
 
 * Read a previously made safe secret. It asks for `topic`.
+
+* List all `topics` of previously saved secrets.
 
 
 #### What are these constructs
@@ -30,6 +34,14 @@ This is supposed to manage daily secrets 'better'.
 
 ### Usage
 
+* generate secret
+
+```
+± % crypt  ### or ± % crypt -axn gen
+here to generate secret, new one
+Oz2FL=A0Z=U3w6mIP+RYj7s9aQ17rVVP
+```
+
 * creating secret
 
 ```
@@ -39,6 +51,15 @@ here to create secret, carry on
 Secret Topic/Domain (eg. gmail.com): gmail
 Secret Key (eg. password, username): user
 Secret Value (secret for user): me
+```
+
+* list secrets
+
+```
+± % crypt -axn list
+Enter your passphrase when none is looking: look
+here to list all topics in this secret, find yours
+gmail
 ```
 
 * reading secret

@@ -14,7 +14,7 @@ import (
 )
 
 var (
-	CyfrAxn    = flag.String("axn", "create", "list/create/read/update/delete")
+	CyfrAxn    = flag.String("axn", "gen", "gen/list/create/read/update/delete")
 	CyfrPath   = flag.String("path", ".cyfr.secrets", "path to secret store")
 	Passphrase string
 )
@@ -30,18 +30,23 @@ type SecretSafe struct {
 
 func main() {
 	flag.Parse()
-	fmt.Print("Enter your passphrase when none is looking: ")
-	fmt.Scanln(&Passphrase)
+	if *CyfrAxn != "gen" {
+		fmt.Print("Enter your passphrase when none is looking: ")
+		fmt.Scanln(&Passphrase)
+	}
 
 	secretSafe, err := readCyfr()
 
-	if err != nil && *CyfrAxn != "create" {
+	if err != nil && (*CyfrAxn != "create" || *CyfrAxn != "gen") {
 		log.Fatalf("can not perform %s on %s, secret file doesn't exist", *CyfrAxn, *CyfrPath)
 	} else if err != nil && *CyfrAxn == "create" {
 		secretSafe.Secrets = make(map[string]Secret)
 	}
 
-	if *CyfrAxn == "create" {
+	if *CyfrAxn == "gen" {
+		fmt.Println("here to generate secret, new one")
+		fmt.Println(golrandom.Token(32))
+	} else if *CyfrAxn == "create" {
 		fmt.Println("here to create secret, carry on")
 		secretSafe.create()
 	} else if *CyfrAxn == "read" {
