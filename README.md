@@ -2,7 +2,7 @@
 
 This is supposed to manage daily secrets 'better'.
 
-[latest release with binaries for v0.2.0](https://github.com/abhishekkr/crypt/releases/latest)
+[latest release with binaries for v0.2.1](https://github.com/abhishekkr/crypt/releases/latest)
 
 ### Does
 

@@ -64,7 +64,7 @@ func main() {
 }
 
 func (secretSafe SecretSafe) create() {
-	var topic, key string
+	var topic, key, overwrite string
 	var crypt golcrypt.AESBlock
 	fmt.Print("Secret Topic/Domain (eg. gmail.com): ")
 	fmt.Scanln(&topic)
@@ -77,8 +77,14 @@ func (secretSafe SecretSafe) create() {
 	crypt.Encrypt()
 	crypt.DataBlob = golcrypt.DataBlob([]byte{})
 
-	secretSafe.Secrets[topic] = Secret{Key: key, Crypt: crypt}
-	writeCyfr(secretSafe)
+	if secretSafe.Secrets[topic].Key != "" {
+		fmt.Printf("The provided topic '%s' already exists, enter yes|y to overwrite: ")
+		fmt.Scanln(&overwrite)
+	}
+	if overwrite == "y" || overwrite == "yes" {
+		secretSafe.Secrets[topic] = Secret{Key: key, Crypt: crypt}
+		writeCyfr(secretSafe)
+	}
 }
 
 func (secretSafe SecretSafe) read() {
