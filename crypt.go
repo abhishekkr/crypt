@@ -57,14 +57,14 @@ func main() {
 		fmt.Println("here to list all topics in this secret, find yours")
 		secretSafe.list()
 	} else if *CyfrAxn == "update" {
-		fmt.Println("[WIP] here to update secret, good job")
+		fmt.Println("here to update secret, use 'create' task and `overwrite`")
 	} else if *CyfrAxn == "delete" {
 		fmt.Println("[WIP] here to update secret, keep calm")
 	}
 }
 
 func (secretSafe SecretSafe) create() {
-	var topic, key string
+	var topic, key, overwrite string
 	var crypt golcrypt.AESBlock
 	fmt.Print("Secret Topic/Domain (eg. gmail.com): ")
 	fmt.Scanln(&topic)
@@ -77,8 +77,16 @@ func (secretSafe SecretSafe) create() {
 	crypt.Encrypt()
 	crypt.DataBlob = golcrypt.DataBlob([]byte{})
 
-	secretSafe.Secrets[topic] = Secret{Key: key, Crypt: crypt}
-	writeCyfr(secretSafe)
+	if secretSafe.Secrets[topic].Key != "" {
+		fmt.Sprintf("The provided topic '%s' already exists, enter yes|y to overwrite: ")
+		fmt.Scanln(&overwrite)
+	} else {
+		overwrite = "y"
+	}
+	if overwrite == "y" || overwrite == "yes" {
+		secretSafe.Secrets[topic] = Secret{Key: key, Crypt: crypt}
+		writeCyfr(secretSafe)
+	}
 }
 
 func (secretSafe SecretSafe) read() {

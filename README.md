@@ -44,7 +44,7 @@ here to generate secret, new one
 Oz2FL=A0Z=U3w6mIP+RYj7s9aQ17rVVP
 ```
 
-* creating secret
+* creating secret; can also update a secret (let's you overwrite with permission)
 
 ```
 ± % crypt -axn create
