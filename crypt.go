@@ -37,7 +37,8 @@ func main() {
 
 	secretSafe, err := readCyfr()
 
-	if err != nil && (*CyfrAxn != "create" || *CyfrAxn != "gen") {
+	if err != nil && (*CyfrAxn != "create" && *CyfrAxn != "gen") {
+		log.Println("can provide a custom path to cyfr-path with flag '-path <secret-file>'")
 		log.Fatalf("can not perform %s on %s, secret file doesn't exist", *CyfrAxn, *CyfrPath)
 	} else if err != nil && *CyfrAxn == "create" {
 		secretSafe.Secrets = make(map[string]Secret)
