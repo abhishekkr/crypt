@@ -12,3 +12,4 @@ temp/*
 *.lock
 *.sock
 .cyfr.secrets
+out/**
