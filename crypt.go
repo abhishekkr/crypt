@@ -78,7 +78,7 @@ func (secretSafe SecretSafe) create() {
 	crypt.DataBlob = golcrypt.DataBlob([]byte{})
 
 	if secretSafe.Secrets[topic].Key != "" {
-		fmt.Sprintf("The provided topic '%s' already exists, enter yes|y to overwrite: ")
+		fmt.Printf("The provided topic '%s' already exists, enter yes|y to overwrite: ", topic)
 		fmt.Scanln(&overwrite)
 	} else {
 		overwrite = "y"
@@ -107,13 +107,13 @@ func (secretSafe SecretSafe) list() {
 }
 
 func writeCyfr(secretSafe SecretSafe) error {
-	secretsJson, err := json.Marshal(secretSafe)
+	secretsJSON, err := json.Marshal(secretSafe)
 	if err != nil {
 		panic("failed to serialize new secrets data")
 	}
 
 	aesBlock := golcrypt.AESBlock{
-		DataBlob: []byte(secretsJson),
+		DataBlob: []byte(secretsJSON),
 		Key:      golcrypt.KeyForAES([]byte(Passphrase)),
 		Cipher:   nil,
 	}
